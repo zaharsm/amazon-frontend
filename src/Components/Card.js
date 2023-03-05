@@ -1,22 +1,44 @@
 import React from 'react'
 import styled from 'styled-components'
 import Rating from '@mui/material/Rating';
+import { useStateValue } from '../StateProvider';
 
-function Card() {
+
+function Card({image,description,defaultValue,price}) {
+
+  const [{basket} ,dispatch] = useStateValue();
+
+
+  console.log("basket >>>",basket);
+  
+
+   const addToBasket = (e)=>{
+      e.preventDefault();
+
+      dispatch({
+        type:"ADD_TO_BASKET",
+        item :{
+          image,
+          description,
+          defaultValue,
+          price
+        }
+      })
+   }
+
   return (
     <Container>
         <Image>
-            <img src="https://m.media-amazon.com/images/I/61y2VVWcGBL._AC_UL640_FMwebp_QL65_.jpg"  alt=''/>
-
+            <img src={image}  alt=''/>
         </Image>
 
         <Description>
-            <h5>Fire-Boltt Phoenix Smart Watch with Bluetooth Calling </h5>
-            <Rating name="half-rating-read" defaultValue={4.5} precision={0.5} readOnly />
-            <p>$39</p>
+            <h5>{description} </h5>
+            <Rating name="half-rating-read" defaultValue={defaultValue} precision={0.5} readOnly />
+            <p>{price}</p>
 
             
-            <button type='button'>Add To Cart</button>
+            <button type='button' onClick={addToBasket}>Add To Cart</button>
          
 
         </Description>
@@ -76,6 +98,7 @@ const Description = styled.div`
       }
 
       p{
+        font-size:24px;
         font-weight:600;
       }
        

@@ -1,7 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useStateValue } from '../StateProvider'
 
 function Navbar() {
+
+  const [{basket}] = useStateValue();
+
   return (
     <Container>
         <Inner>
@@ -25,7 +29,7 @@ function Navbar() {
                 </NavButton>
                 <BasketButton>
                     <img src="./basket-icon.png" alt='Basket' />
-                    <p>0</p>
+                    <p>{basket.length}</p>
                 </BasketButton>
             </RightContainer>
         </Inner>
