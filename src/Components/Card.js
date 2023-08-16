@@ -2,29 +2,42 @@ import React from "react";
 import { styled } from "styled-components";
 import Rating from "@material-ui/lab/Rating";
 
-function Card() {
+import { useStateValue } from "../StateProvider";
+
+function Card({ key, image, description, defaultValue, price }) {
+  const [{ basket }, dispatch] = useStateValue();
+  console.log("basket >>>>", basket);
+  const addToBasket = (e) => {
+    e.preventDefault();
+
+    dispatch({
+      type: "ADD_TO_BASKET",
+      item: {
+        key,
+        description,
+        price,
+        image,
+        defaultValue,
+      },
+    });
+  };
+
   return (
     <Container>
       <Image>
-        <img
-          src="https://m.media-amazon.com/images/I/41W7U1ZQhDL._AC_SR400,600_.jpg"
-          alt=""
-        />
+        <img src={image} alt="" />
       </Image>
 
       <Description>
-        <h5>
-          Fastrack New Limitless FS1 Smart Watch| Biggest 1.95" Horizon Curve
-          Display
-        </h5>
+        <h5>{description}</h5>
         <Rating
           name="half-rating-read"
-          defaultValue={4.0}
+          defaultValue={defaultValue}
           precision={0.5}
           readOnly
         />
-        <p>₹2,295</p>
-        <button>Add to Cart</button>
+        <p>{price}</p>
+        <button onClick={addToBasket}>Add to Cart</button>
       </Description>
     </Container>
   );

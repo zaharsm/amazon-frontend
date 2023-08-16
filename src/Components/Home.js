@@ -2,24 +2,26 @@ import React from "react";
 import { styled } from "styled-components";
 import Navbar from "./Navbar";
 import Card from "./Card";
+import data from "../data.js";
 
 function Home() {
   return (
     <Container>
-      <Navbar />
+      <Navbar  />
       <Banner>
         <img src="./banner.jpg" alt="Banner" />
         <img src="./mobile_banner.jpg" alt="Mobile Banner" />
       </Banner>
       <Main>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {data.map((data, index) => (
+          <Card
+            key={index}
+            image={data.image}
+            description={data.description}
+            defaultValue={data.defaultValue}
+            price={data.price}
+          />
+        ))}
       </Main>
     </Container>
   );
