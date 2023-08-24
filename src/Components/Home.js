@@ -15,7 +15,7 @@ function Home() {
       <Main>
         {data.map((data, index) => (
           <Card
-            key={index}
+            id={index}
             image={data.image}
             description={data.description}
             defaultValue={data.defaultValue}
@@ -31,6 +31,9 @@ const Container = styled.div`
   width: 100%;
   background-color: rgb(234, 237, 237);
   height: fit-content;
+  max-width:1500px;
+  height:fit-content;
+  margin:auto;
 `;
 
 const Banner = styled.div`

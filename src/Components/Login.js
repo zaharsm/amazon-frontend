@@ -105,7 +105,6 @@ const InputContainer = styled.div`
         border:1px solid orange;
     }
    }
-
 `
 
 const LoginButton = styled.button`
