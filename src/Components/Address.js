@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { styled } from "styled-components";
 import Navbar from "./Navbar";
 import { useStateValue } from "../StateProvider";
+import { useNavigate } from "react-router-dom";
 
 function Address() {
   const [{}, dispatch] = useStateValue();
@@ -13,7 +14,7 @@ function Address() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
 
-  console.log(fullName);
+  const navigate = useNavigate();
 
   const deliver = (e) => {
     e.preventDefault();
@@ -30,6 +31,8 @@ function Address() {
         state,
       },
     });
+
+    navigate("/payment");
   };
 
   return (
