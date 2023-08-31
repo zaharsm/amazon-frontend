@@ -72,10 +72,7 @@ function Payment() {
             thousandSeparator={true}
             decimalScale={2}
           />
-          <small>
-            <input type="checkbox" name="" id="" />
-            <span>This order contains a gift</span>
-          </small>
+
           <button>Place Order</button>
         </SubTotal>
       </Main>
