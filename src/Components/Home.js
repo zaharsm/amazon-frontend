@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Navbar from "./Navbar";
 import Card from "./Card";
-import data from "../data.js";
+import axios from "../axios";
 
 function Home() {
+
+  const [products,setProducts] = useState('');
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      const data = await axios.get("/products/add");
+      setProducts(data);
+    };
+    fetchdata();
+  }, []);
+
   return (
     <Container>
       <Navbar  />
@@ -13,15 +24,16 @@ function Home() {
         <img src="./mobile_banner.jpg" alt="Mobile Banner" />
       </Banner>
       <Main>
-        {data.map((data, index) => (
-          <Card
-            id={index}
-            image={data.image}
-            description={data.description}
-            defaultValue={data.defaultValue}
-            price={data.price}
-          />
-        ))}
+      {products &&
+          products?.data.map((product) => (
+            <Card
+              id={product._id}
+              image={product.imageUrl}
+              price={product.price}
+              defaultValue={product.rating}
+              description={product.title}
+            />
+          ))}
       </Main>
     </Container>
   );
