@@ -6,7 +6,7 @@ import { useStateValue } from "../StateProvider";
 
 function Card({ id, image, description, defaultValue, price }) {
   const [{ basket }, dispatch] = useStateValue();
-  console.log("basket >>>>", basket);
+  // console.log("basket >>>>", basket);
   const addToBasket = (e) => {
     e.preventDefault();
 

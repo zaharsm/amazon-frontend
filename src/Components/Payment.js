@@ -1,15 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Navbar from "./Navbar";
 import { useStateValue } from "../StateProvider";
 import { getBasketTotal } from "../reducer";
 import CurrencyFormat from "react-currency-format";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
+import axios from "../axios";
+import { useNavigate } from "react-router-dom";
 
 function Payment() {
-  const [{ address, basket }] = useStateValue();
-  const stripe = useStripe();
-  const elements = useElements();
+   const [{ address, basket },dispatch] = useStateValue();
+   const [clientSecret,setClientSecret] = useState('');
+   const stripe = useStripe();
+   const elements = useElements();
+
+   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchClientSecret = async () => {
+      const data = await axios.post("/payment/create", {
+        amount: getBasketTotal(basket),
+      });
+
+      setClientSecret(data.data.clientSecret);
+    };
+
+    fetchClientSecret();
+    console.log("clientSecret is >>>>", clientSecret);
+  }, []);
+
+  const confirmPayment = async (e) => {
+    e.preventDefault();
+
+    await stripe
+      .confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+        },
+      })
+      .then((result) => {
+        alert("Payment successfull");
+
+        dispatch({
+          type: "EMPTY_BASKET",
+        });
+        navigate("/");
+      })
+      .catch((err) => console.warn(err));
+  };
+
+
   return (
     <Container>
       <Navbar />
@@ -73,7 +113,7 @@ function Payment() {
             decimalScale={2}
           />
 
-          <button>Place Order</button>
+          <button onClick={confirmPayment}>Place Order</button>
         </SubTotal>
       </Main>
     </Container>
