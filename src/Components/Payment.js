@@ -9,7 +9,7 @@ import axios from "../axios";
 import { useNavigate } from "react-router-dom";
 
 function Payment() {
-   const [{ address, basket },dispatch] = useStateValue();
+   const [{ address, basket,user },dispatch] = useStateValue();
    const [clientSecret,setClientSecret] = useState('');
    const stripe = useStripe();
    const elements = useElements();
@@ -39,6 +39,14 @@ function Payment() {
         },
       })
       .then((result) => {
+
+        axios.post('/orders/add',{
+          basket:basket,
+          price: getBasketTotal(basket),
+          email: user?.email,
+          address: address,
+        })
+
         alert("Payment successfull");
 
         dispatch({

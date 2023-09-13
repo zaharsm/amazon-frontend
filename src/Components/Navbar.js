@@ -10,7 +10,7 @@ function Navbar() {
   return (
     <Container>
       <Inner>
-        <Logo>
+        <Logo onClick={()=> navigate('/')}>
           <img src="./amazon_logo1.png" alt="" />
         </Logo>
         <SearchBar>
@@ -25,7 +25,7 @@ function Navbar() {
             <p>Guest</p>
           </NavButton>
 
-          <NavButton>
+          <NavButton onClick={()=>navigate('/orders')}>
             <p>Return </p>
             <p>&Orders</p>
           </NavButton>

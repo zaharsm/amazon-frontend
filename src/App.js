@@ -10,6 +10,7 @@ import Payment from './Components/Payment';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import AddProduct from './Components/AddProduct';
+import Orders from './Components/Orders';
 
 const StripePromise = loadStripe('pk_test_51NlBohSCM2T39KjUdxOh2vRVr9bycvxKN7CNAIdyiHNCTAd9aYRhoixFCsYb34s9BrBFLgUUx5NOlikJEglIdZou00aq7CoC04');
 
@@ -23,6 +24,7 @@ function App() {
         <Route path='/checkout'  element={<Checkout />}/>
         <Route path='/address'  element={<Address />}/>
         <Route path='/addproduct'  element={<AddProduct />}/>
+        <Route path='/orders'  element={<Orders />}/>
         <Route path='/payment'  element={
             <Elements stripe={StripePromise} >
             <Payment />
@@ -36,7 +38,12 @@ function App() {
 }
 
 const Container = styled.div`
- width : 100vw; 
+ width : 100vw;
+ height:  100vh;
+ overflow-y: scroll;
+ &::-webkit-scrollbar {
+   display: none;
+ }
 `
 
 export default App;
