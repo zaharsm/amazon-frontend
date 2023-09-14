@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-     baseURL: 'http://localhost:8000'
+     baseURL: 'https://amazon-backend-server.vercel.app'
 });
 
 export default instance;
